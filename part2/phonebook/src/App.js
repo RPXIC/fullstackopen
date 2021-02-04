@@ -1,9 +1,15 @@
 import React, {useState} from 'react'
 
 const App = () => {
-	const [persons, setPersons] = useState([{name: 'Arto Hellas'}])
 	const [newName, setNewName] = useState('')
 	const [newNumber, setNewNumber] = useState('')
+	const [filtered, setFiltered] = useState([])
+	const [persons, setPersons] = useState([
+		{name: 'Arto Hellas', number: '040-123456'},
+		{name: 'Ada Lovelace', number: '39-44-5323523'},
+		{name: 'Dan Abramov', number: '12-43-234345'},
+		{name: 'Mary Poppendieck', number: '39-23-6423122'},
+	])
 
 	const handleSubmit = e => {
 		e.preventDefault()
@@ -30,9 +36,31 @@ const App = () => {
 		}
 	}
 
+	const handleSearch = e => {
+		const query = e.target.value
+
+		if (!query.trim()) return setFiltered([])
+
+		const result = persons.filter(obj =>
+			obj.name.toLowerCase().includes(query.toLowerCase())
+		)
+		setFiltered(result)
+	}
+
 	return (
 		<div>
 			<h2>Phonebook</h2>
+			<p>
+				filter shown with <input onChange={e => handleSearch(e)} />
+			</p>
+			{filtered.length > 0 &&
+				filtered.map((person, index) => (
+					<p key={index}>
+						{person.name} {person.number}
+					</p>
+				))}
+
+			<h2>add a new</h2>
 			<form onSubmit={handleSubmit}>
 				<div>
 					name:{' '}
