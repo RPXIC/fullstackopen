@@ -1,0 +1,28 @@
+const Filter = ({filtered, persons, setFiltered}) => {
+	const handleSearch = e => {
+		const query = e.target.value
+
+		if (!query.trim()) return setFiltered([])
+
+		const result = persons.filter(obj =>
+			obj.name.toLowerCase().includes(query.toLowerCase())
+		)
+		setFiltered(result)
+	}
+
+	return (
+		<>
+			<p>
+				filter shown with <input onChange={e => handleSearch(e)} />
+			</p>
+			{filtered.length > 0 &&
+				filtered.map((person, index) => (
+					<p key={index}>
+						{person.name} {person.number}
+					</p>
+				))}
+		</>
+	)
+}
+
+export default Filter
