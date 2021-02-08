@@ -16,8 +16,8 @@ const Filter = ({filtered, persons, setFiltered}) => {
 				filter shown with <input onChange={e => handleSearch(e)} />
 			</p>
 			{filtered.length > 0 &&
-				filtered.map((person, index) => (
-					<p key={index}>
+				filtered.map(person => (
+					<p key={person.id}>
 						{person.name} {person.number}
 					</p>
 				))}

@@ -1,21 +1,25 @@
 import React, {useState, useEffect} from 'react'
-import axios from 'axios'
 import Filter from './Filter'
 import PersonForm from './PersonForm'
 import Persons from './Persons'
+import Notification from './Notification'
+import {getPersons} from './services'
+import './index.css'
 
 const App = () => {
 	const [filtered, setFiltered] = useState([])
 	const [persons, setPersons] = useState([])
+	const [msg, setMsg] = useState(null)
 
 	useEffect(() => {
-		axios
-			.get('http://localhost:3001/persons')
+		getPersons()
 			.then(res => setPersons(res.data))
+			.catch(err => console.log(err))
 	}, [])
 
 	return (
 		<div>
+			{msg && <Notification msg={msg} setMsg={setMsg} />}
 			<h2>Phonebook</h2>
 
 			<Filter
@@ -26,11 +30,19 @@ const App = () => {
 
 			<h2>add a new</h2>
 
-			<PersonForm persons={persons} setPersons={setPersons} />
+			<PersonForm
+				persons={persons}
+				setPersons={setPersons}
+				setMsg={setMsg}
+			/>
 
 			<h2>Numbers</h2>
 
-			<Persons persons={persons} />
+			<Persons
+				persons={persons}
+				setPersons={setPersons}
+				setMsg={setMsg}
+			/>
 		</div>
 	)
 }
