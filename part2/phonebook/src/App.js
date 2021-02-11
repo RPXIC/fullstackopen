@@ -1,19 +1,19 @@
 import React, {useState, useEffect} from 'react'
 import Filter from './Filter'
 import PersonForm from './PersonForm'
-import Persons from './Persons'
+import People from './People'
 import Notification from './Notification'
-import {getPersons} from './services'
+import {getPeople} from './services'
 import './index.css'
 
 const App = () => {
 	const [filtered, setFiltered] = useState([])
-	const [persons, setPersons] = useState([])
+	const [people, setPeople] = useState([])
 	const [msg, setMsg] = useState(null)
 
 	useEffect(() => {
-		getPersons()
-			.then(res => setPersons(res.data))
+		getPeople()
+			.then(res => setPeople(res.data))
 			.catch(err => console.log(err))
 	}, [])
 
@@ -24,25 +24,17 @@ const App = () => {
 
 			<Filter
 				filtered={filtered}
-				persons={persons}
+				people={people}
 				setFiltered={setFiltered}
 			/>
 
 			<h2>add a new</h2>
 
-			<PersonForm
-				persons={persons}
-				setPersons={setPersons}
-				setMsg={setMsg}
-			/>
+			<PersonForm people={people} setPeople={setPeople} setMsg={setMsg} />
 
 			<h2>Numbers</h2>
 
-			<Persons
-				persons={persons}
-				setPersons={setPersons}
-				setMsg={setMsg}
-			/>
+			<People people={people} setPeople={setPeople} setMsg={setMsg} />
 		</div>
 	)
 }

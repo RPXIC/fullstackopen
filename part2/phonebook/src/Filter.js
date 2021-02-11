@@ -1,10 +1,10 @@
-const Filter = ({filtered, persons, setFiltered}) => {
+const Filter = ({filtered, people, setFiltered}) => {
 	const handleSearch = e => {
 		const query = e.target.value
 
 		if (!query.trim()) return setFiltered([])
 
-		const result = persons.filter(obj =>
+		const result = people.filter(obj =>
 			obj.name.toLowerCase().includes(query.toLowerCase())
 		)
 		setFiltered(result)

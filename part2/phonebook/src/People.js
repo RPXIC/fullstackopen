@@ -1,11 +1,11 @@
 import {deletePerson} from './services'
 
-const Persons = ({persons, setPersons, setMsg}) => {
+const People = ({people, setPeople, setMsg}) => {
 	const handleClick = (id, name) => {
 		window.confirm(`Delete ${name}`) &&
 			deletePerson(id)
 				.then(() =>
-					setPersons(persons.filter(person => person.id !== id))
+					setPeople(people.filter(person => person.id !== id))
 				)
 				.catch(err => {
 					setMsg({
@@ -18,7 +18,7 @@ const Persons = ({persons, setPersons, setMsg}) => {
 
 	return (
 		<>
-			{persons.map(person => (
+			{people.map(person => (
 				<div key={person.id}>
 					<span>
 						{person.name} {person.number}
@@ -34,4 +34,4 @@ const Persons = ({persons, setPersons, setMsg}) => {
 	)
 }
 
-export default Persons
+export default People

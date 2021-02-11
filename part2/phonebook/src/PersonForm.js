@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import {addPerson, updatePerson} from './services'
 
-const PersonForm = ({persons, setPersons, setMsg}) => {
+const PersonForm = ({people, setPeople, setMsg}) => {
 	const [newName, setNewName] = useState('')
 	const [newNumber, setNewNumber] = useState('')
 
@@ -15,7 +15,7 @@ const PersonForm = ({persons, setPersons, setMsg}) => {
 			number: newNumber,
 		}
 
-		const personExist = persons.find(
+		const personExist = people.find(
 			person => person.name.toLowerCase() === newName.toLowerCase()
 		)
 
@@ -25,8 +25,8 @@ const PersonForm = ({persons, setPersons, setMsg}) => {
 			) &&
 				updatePerson(personExist, newPerson)
 					.then(res => {
-						setPersons(
-							persons.map(person =>
+						setPeople(
+							people.map(person =>
 								person.id !== personExist.id ? person : res.data
 							)
 						)
@@ -39,10 +39,12 @@ const PersonForm = ({persons, setPersons, setMsg}) => {
 		} else {
 			addPerson(newPerson)
 				.then(res => {
-					setPersons([...persons, res.data])
+					setPeople([...people, res.data])
 					setMsg({text: `Added ${newPerson.name}`, type: 'success'})
 				})
-				.catch(err => console.log(err))
+				.catch(err => {
+					setMsg({text: err.response.data.error, type: 'error'})
+				})
 			setNewName('')
 			setNewNumber('')
 		}

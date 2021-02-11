@@ -1,7 +1,7 @@
 import axios from 'axios'
-const baseURL = 'http://localhost:3001/persons'
+const baseURL = '/people'
 
-const getPersons = () => {
+const getPeople = () => {
 	return axios.get(baseURL)
 }
 
@@ -17,4 +17,4 @@ const updatePerson = (person, newPerson) => {
 	return axios.put(`${baseURL}/${person.id}`, newPerson)
 }
 
-export {getPersons, addPerson, deletePerson, updatePerson}
+export {getPeople, addPerson, deletePerson, updatePerson}
