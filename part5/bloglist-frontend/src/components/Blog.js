@@ -29,7 +29,9 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
   return (
     <div style={blogStyle}>
       <div>
-        <span>{blog.title}</span>
+        <span>
+          {blog.title} {blog.author}
+        </span>
         <button onClick={() => setVisible(!visible)}>
           {visible ? 'hide' : 'show'}
         </button>
@@ -41,7 +43,7 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
             <span>Likes: {blog.likes}</span>
             <button onClick={() => handleLike(blog)}>like</button>
           </div>
-          <p>{blog.author}</p>
+          <p>{blog.user.username}</p>
           {isOwner && (
             <button onClick={() => handleRemove(blog)}>Remove</button>
           )}
