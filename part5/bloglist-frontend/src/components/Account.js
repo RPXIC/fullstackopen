@@ -1,3 +1,4 @@
+import React from 'react'
 import { blogsService } from 'services'
 
 const Account = ({ user, setUser }) => {

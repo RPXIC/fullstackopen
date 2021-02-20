@@ -9,7 +9,10 @@ const setToken = newToken => {
 
 const getAll = async () => {
   const response = await axios.get(baseUrl)
-  return response.data
+  const sorted = response.data.sort((a, b) =>
+    a.likes < b.likes ? 1 : b.likes < a.likes ? -1 : 0
+  )
+  return sorted
 }
 
 const create = async newObject => {
@@ -20,4 +23,16 @@ const create = async newObject => {
   return response.data
 }
 
-export default { getAll, create, setToken }
+const updateBlog = async (newObject, id) => {
+  const response = await axios.put(`${baseUrl}/${id}`, newObject)
+  return response.data
+}
+
+const deleteBlog = async id => {
+  const config = {
+    headers: { Authorization: token },
+  }
+  await axios.delete(`${baseUrl}/${id}`, config)
+}
+
+export default { getAll, create, setToken, updateBlog, deleteBlog }

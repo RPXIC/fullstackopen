@@ -1,24 +1,20 @@
-import { useState } from 'react'
-import { blogsService } from 'services'
+import React, { useState } from 'react'
 
-const BlogForm = ({ blogs, setBlogs, setMessage }) => {
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')
+const BlogForm = ({ createBlog }) => {
+  const [newBlog, setNewBlog] = useState({ title: '', author: '', url: '' })
+  const { title, author, url } = newBlog
 
   const handleNewBlog = async e => {
     e.preventDefault()
-    const newBlog = {
-      title,
-      author,
-      url,
-    }
-    const res = await blogsService.create(newBlog)
-    setBlogs([...blogs, res])
-    setMessage({ type: 'success', text: `a new blog ${res.title} added` })
-    setTitle('')
-    setAuthor('')
-    setUrl('')
+    createBlog(newBlog)
+    setNewBlog({ title: '', author: '', url: '' })
+  }
+
+  const handleChange = e => {
+    setNewBlog({
+      ...newBlog,
+      [e.target.name]: e.target.value,
+    })
   }
 
   return (
@@ -29,7 +25,8 @@ const BlogForm = ({ blogs, setBlogs, setMessage }) => {
           <span>Title: </span>
           <input
             type='text'
-            onChange={({ target }) => setTitle(target.value)}
+            name='title'
+            onChange={handleChange}
             value={title}
           />
         </div>
@@ -37,17 +34,14 @@ const BlogForm = ({ blogs, setBlogs, setMessage }) => {
           <span>Author: </span>
           <input
             type='text'
-            onChange={({ target }) => setAuthor(target.value)}
+            name='author'
+            onChange={handleChange}
             value={author}
           />
         </div>
         <div>
           <span>Url: </span>
-          <input
-            type='text'
-            onChange={({ target }) => setUrl(target.value)}
-            value={url}
-          />
+          <input type='text' name='url' onChange={handleChange} value={url} />
         </div>
         <button>Create</button>
       </form>
