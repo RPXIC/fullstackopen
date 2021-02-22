@@ -11,7 +11,9 @@ const Account = ({ user, setUser }) => {
   return (
     <p>
       {user.name}
-      <button onClick={handleLogout}>Logout</button>
+      <button data-cy='logout-button' onClick={handleLogout}>
+        Logout
+      </button>
     </p>
   )
 }

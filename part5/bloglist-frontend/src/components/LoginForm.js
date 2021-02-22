@@ -23,6 +23,7 @@ const LoginForm = ({ setUser, setMessage }) => {
       <div>
         <span>Username </span>
         <input
+          data-cy='username-input'
           type='text'
           placeholder='Username'
           value={username}
@@ -33,6 +34,7 @@ const LoginForm = ({ setUser, setMessage }) => {
       <div>
         <span>Password </span>
         <input
+          data-cy='password-input'
           type='password'
           placeholder='Password'
           value={password}
@@ -40,7 +42,7 @@ const LoginForm = ({ setUser, setMessage }) => {
           onChange={({ target }) => setPassword(target.value)}
         />
       </div>
-      <button>Login</button>
+      <button data-cy='login-button'>Login</button>
     </form>
   )
 }

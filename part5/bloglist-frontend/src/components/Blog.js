@@ -27,12 +27,14 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
   }
 
   return (
-    <div style={blogStyle}>
+    <div style={blogStyle} data-cy='blog'>
       <div>
         <span>
           {blog.title} {blog.author}
         </span>
-        <button onClick={() => setVisible(!visible)}>
+        <button
+          data-cy='blog-details-button'
+          onClick={() => setVisible(!visible)}>
           {visible ? 'hide' : 'show'}
         </button>
       </div>
@@ -40,12 +42,18 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
         <div>
           <p>{blog.url}</p>
           <div>
-            <span>Likes: {blog.likes}</span>
-            <button onClick={() => handleLike(blog)}>like</button>
+            <span>
+              Likes: <span data-cy='likes'>{blog.likes}</span>
+            </span>
+            <button data-cy='like-button' onClick={() => handleLike(blog)}>
+              like
+            </button>
           </div>
           <p>{blog.user.username}</p>
           {isOwner && (
-            <button onClick={() => handleRemove(blog)}>Remove</button>
+            <button data-cy='remove-button' onClick={() => handleRemove(blog)}>
+              Remove
+            </button>
           )}
         </div>
       )}

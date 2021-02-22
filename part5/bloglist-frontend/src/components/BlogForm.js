@@ -24,6 +24,7 @@ const BlogForm = ({ createBlog }) => {
         <div>
           <span>Title: </span>
           <input
+            data-cy='title-input'
             type='text'
             name='title'
             onChange={handleChange}
@@ -34,6 +35,7 @@ const BlogForm = ({ createBlog }) => {
         <div>
           <span>Author: </span>
           <input
+            data-cy='author-input'
             type='text'
             name='author'
             onChange={handleChange}
@@ -44,6 +46,7 @@ const BlogForm = ({ createBlog }) => {
         <div>
           <span>Url: </span>
           <input
+            data-cy='url-input'
             type='text'
             name='url'
             onChange={handleChange}
@@ -51,7 +54,7 @@ const BlogForm = ({ createBlog }) => {
             className='url'
           />
         </div>
-        <button>Create</button>
+        <button data-cy='create-button'>Create</button>
       </form>
     </>
   )
