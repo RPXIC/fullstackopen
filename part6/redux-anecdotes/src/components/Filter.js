@@ -1,12 +1,10 @@
 import React from 'react'
 import { filterQuery } from '../reducers/filterReduceer'
-import { useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 
-const Filter = () => {
-  const dispatch = useDispatch()
-
+const Filter = props => {
   const handleChange = e => {
-    dispatch(filterQuery(e.target.value))
+    props.filterQuery(e.target.value)
   }
   const style = {
     marginBottom: 10,
@@ -19,4 +17,10 @@ const Filter = () => {
   )
 }
 
-export default Filter
+const mapDispatchToProps = {
+  filterQuery,
+}
+
+const ConnectedFilter = connect(null, mapDispatchToProps)(Filter)
+
+export default ConnectedFilter
