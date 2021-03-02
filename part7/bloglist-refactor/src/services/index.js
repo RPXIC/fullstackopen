@@ -1,4 +1,5 @@
-import blogsService from './blogs'
+import blogsServices from './blogs'
 import loginService from './login'
+import usersService from './users'
 
-export { blogsService, loginService }
+export { blogsServices, loginService, usersService }

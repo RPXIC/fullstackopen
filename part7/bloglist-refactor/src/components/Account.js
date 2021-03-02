@@ -1,10 +1,10 @@
 import React from 'react'
-import { blogsService } from 'services'
+import { blogsServices } from 'services'
 
 const Account = ({ user, setUser }) => {
   const handleLogout = () => {
     window.localStorage.clear()
-    blogsService.setToken(null)
+    blogsServices.setToken(null)
     setUser(null)
   }
 

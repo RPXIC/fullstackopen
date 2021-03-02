@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { sortByValues } from 'utils/utils'
 const baseUrl = 'http://localhost:3001/api/blogs'
 
 let token = null
@@ -9,9 +10,7 @@ const setToken = newToken => {
 
 const getAll = async () => {
   const response = await axios.get(baseUrl)
-  const sorted = response.data.sort((a, b) =>
-    a.likes < b.likes ? 1 : b.likes < a.likes ? -1 : 0
-  )
+  const sorted = sortByValues(response.data, 'likes')
   return sorted
 }
 
@@ -23,8 +22,8 @@ const create = async newObject => {
   return response.data
 }
 
-const updateBlog = async (newObject, id) => {
-  const response = await axios.put(`${baseUrl}/${id}`, newObject)
+const updateBlog = async newBlog => {
+  const response = await axios.put(`${baseUrl}/${newBlog.id}`, newBlog)
   return response.data
 }
 

@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import { deleteBlog, likeABlog } from 'reducers/blogReducer'
 
-const Blog = ({ blog, updateBlog, deleteBlog }) => {
-  const [visible, setVisible] = useState(false)
+const Blog = ({ blog }) => {
+  const dispatch = useDispatch()
   const isOwner =
     blog.user.username ===
     JSON.parse(window.localStorage.getItem('user')).username
@@ -14,48 +16,23 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
     marginBottom: 5,
   }
 
-  const handleLike = blog => {
-    const { title, author, url, likes, user, id } = blog
-    const newBlog = { title, author, url, likes: likes + 1, user: user.id }
-    updateBlog(newBlog, id)
-  }
-
-  const handleRemove = blog => {
-    if (window.confirm(`Remove blog ${blog.title}`)) {
-      deleteBlog(blog.id)
-    }
-  }
-
   return (
     <div style={blogStyle} data-cy='blog'>
-      <div>
-        <span>
-          {blog.title} {blog.author}
-        </span>
+      <h1>{blog.title}</h1>
+      <a href={blog.url}>{blog.url}</a>
+      <p>
+        Likes: <span data-cy='likes'>{blog.likes}</span>
+      </p>
+      <button data-cy='like-button' onClick={() => dispatch(likeABlog(blog))}>
+        like
+      </button>
+      <p>added by {blog.author}</p>
+      {isOwner && (
         <button
-          data-cy='blog-details-button'
-          onClick={() => setVisible(!visible)}>
-          {visible ? 'hide' : 'show'}
+          data-cy='remove-button'
+          onClick={() => dispatch(deleteBlog(blog))}>
+          Remove
         </button>
-      </div>
-      {visible && (
-        <div>
-          <p>{blog.url}</p>
-          <div>
-            <span>
-              Likes: <span data-cy='likes'>{blog.likes}</span>
-            </span>
-            <button data-cy='like-button' onClick={() => handleLike(blog)}>
-              like
-            </button>
-          </div>
-          <p>{blog.user.username}</p>
-          {isOwner && (
-            <button data-cy='remove-button' onClick={() => handleRemove(blog)}>
-              Remove
-            </button>
-          )}
-        </div>
       )}
     </div>
   )

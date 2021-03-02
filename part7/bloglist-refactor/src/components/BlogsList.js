@@ -1,16 +1,16 @@
 import React from 'react'
-import Blog from './Blog'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
-const BlogsList = ({ blogs, deleteBlog, updateBlog }) => {
+const BlogsList = () => {
+  const blogs = useSelector(state => state.blogs)
+
   return (
     <>
       {blogs.map(blog => (
-        <Blog
-          key={blog.id}
-          blog={blog}
-          updateBlog={updateBlog}
-          deleteBlog={deleteBlog}
-        />
+        <li key={blog.id}>
+          <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+        </li>
       ))}
     </>
   )
