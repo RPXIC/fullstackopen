@@ -22,6 +22,7 @@ blogRouter.post('/', async (request, response) => {
     url: body.url,
     likes: body.likes,
     user: user._id,
+    comments: [],
   })
 
   const savedBlog = await blog.save()
@@ -29,6 +30,25 @@ blogRouter.post('/', async (request, response) => {
   await user.save()
 
   response.json(savedBlog)
+})
+
+blogRouter.post('/:id/comments', async (request, response) => {
+  const { comment } = request.body
+  const { id } = request.params
+  const blog = await Blog.findById(id)
+
+  const newBlog = {
+    author: blog.author,
+    title: blog.title,
+    url: blog.url,
+    likes: blog.likes,
+    comments: blog.comments.concat(comment),
+  }
+
+  const updatedBlog = await Blog.findByIdAndUpdate(id, newBlog, {
+    new: true,
+  })
+  response.json(updatedBlog.toJSON())
 })
 
 blogRouter.get('/:id', async (request, response) => {

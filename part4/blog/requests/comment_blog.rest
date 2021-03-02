@@ -1,10 +1,7 @@
-POST http://localhost:3001/api/blogs
+POST http://localhost:3001/api/blogs/60313bde2df9be3cf3f7064b/comments
 Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJweGljIiwiaWQiOiI2MDI5ODc3OTBjODAwNGRjY2VlMDhiM2UiLCJpYXQiOjE2MTMzMzczMzJ9.gRd44zy-FensZalsb-9LQrBfvW_ziO2zXaEc5a3rNlo
 
 {
-    "title": "testing blog with token middleware",
-    "author": "rpxic",
-    "url": "www.page.es",
-    "likes": 2,
+    "comment": "new comment2"
 }
