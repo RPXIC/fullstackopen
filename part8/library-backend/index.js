@@ -18,19 +18,14 @@ let authors = [
     born: 1821,
   },
   {
-    name: 'Joshua Kerievsky', // birthyear not known
+    name: 'Joshua Kerievsky',
     id: 'afa5b6f2-344d-11e9-a414-719c6709cf3e',
   },
   {
-    name: 'Sandi Metz', // birthyear not known
+    name: 'Sandi Metz',
     id: 'afa5b6f3-344d-11e9-a414-719c6709cf3e',
   },
 ]
-
-/*
- * Saattaisi olla järkevämpää assosioida kirja ja sen tekijä tallettamalla kirjan yhteyteen tekijän nimen sijaan tekijän id
- * Yksinkertaisuuden vuoksi tallennamme kuitenkin kirjan yhteyteen tekijän nimen
- */
 
 let books = [
   {
@@ -170,7 +165,6 @@ const resolvers = {
     editAuthor: (root, args) => {
       const authorExist = authors.some(author => author.name === args.name)
       if (!authorExist) return null
-      // const authorModified = { name: args.name, born: args.setBornTo}
       authors = authors.map(author =>
         author.name === args.name ? { ...author, born: args.setBornTo } : author
       )
