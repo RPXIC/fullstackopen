@@ -12,9 +12,22 @@ const SetBirthYear = ({ authors }) => {
   }))
 
   const [editAuthor] = useMutation(EDIT_AUTHOR, {
-    refetchQueries: [{ query: AUTHORS }],
     onError: error => {
       console.log(error)
+    },
+    update: (store, response) => {
+      const dataInStore = store.readQuery({ query: AUTHORS })
+      store.writeQuery({
+        query: AUTHORS,
+        data: {
+          ...dataInStore,
+          allAuthors: dataInStore.allAuthors.map(author =>
+            author.name === response.data.editAuthor.name
+              ? { ...author, born: response.data.editAuthor.born }
+              : author
+          ),
+        },
+      })
     },
   })
 

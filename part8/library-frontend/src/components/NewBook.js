@@ -10,9 +10,19 @@ const NewBook = props => {
   const [genres, setGenres] = useState([])
 
   const [addBook] = useMutation(ADD_BOOK, {
-    refetchQueries: [{ query: ALL_BOOKS }, { query: AUTHORS }],
+    refetchQueries: [{ query: AUTHORS }],
     onError: error => {
       console.log(error)
+    },
+    update: (store, response) => {
+      const dataInStore = store.readQuery({ query: ALL_BOOKS })
+      store.writeQuery({
+        query: ALL_BOOKS,
+        data: {
+          ...dataInStore,
+          allBooks: [...dataInStore.allBooks, response.data.addBook],
+        },
+      })
     },
   })
 
@@ -20,9 +30,7 @@ const NewBook = props => {
 
   const submit = async event => {
     event.preventDefault()
-
     addBook({ variables: { title, author, published, genres } })
-
     setTitle('')
     setPublished('')
     setAuhtor('')
