@@ -4,6 +4,8 @@ const {
   AuthenticationError,
   gql,
 } = require('apollo-server')
+const { PubSub } = require('apollo-server')
+const pubsub = new PubSub()
 const mongoose = require('mongoose')
 const Author = require('./models/Author')
 const Book = require('./models/Book')
@@ -79,6 +81,10 @@ const typeDefs = gql`
     createUser(username: String!, favoriteGenre: String!): User
     login(username: String!, password: String!): Token
   }
+
+  type Subscription {
+    bookAdded: Book!
+  }
 `
 
 const resolvers = {
@@ -123,7 +129,12 @@ const resolvers = {
           const author = new Author({ name: args.author })
           await author.save()
           const book = new Book({ ...args, author: author._id })
-          return book.save()
+          await book.save()
+          const bookWithAuthor = await Book.findById(book._id).populate(
+            'author'
+          )
+          pubsub.publish('BOOK_ADDED', { bookAdded: bookWithAuthor })
+          return book
         } catch (error) {
           throw new UserInputError(error.message, {
             invalidArgs: args,
@@ -132,7 +143,10 @@ const resolvers = {
       }
       try {
         const book = new Book({ ...args, author: authorExist._id })
-        return book.save()
+        await book.save()
+        const bookWithAuthor = await Book.findById(book._id).populate('author')
+        pubsub.publish('BOOK_ADDED', { bookAdded: bookWithAuthor })
+        return book
       } catch (error) {
         throw new UserInputError(error.message, {
           invalidArgs: args,
@@ -170,6 +184,11 @@ const resolvers = {
       return { value: jwt.sign(userForToken, JWT_SECRET) }
     },
   },
+  Subscription: {
+    bookAdded: {
+      subscribe: () => pubsub.asyncIterator(['BOOK_ADDED']),
+    },
+  },
 }
 
 const server = new ApolloServer({
@@ -185,6 +204,7 @@ const server = new ApolloServer({
   },
 })
 
-server.listen().then(({ url }) => {
+server.listen().then(({ url, subscriptionsUrl }) => {
   console.log(`Server ready at ${url}`)
+  console.log(`Subscriptions ready at ${subscriptionsUrl}`)
 })
