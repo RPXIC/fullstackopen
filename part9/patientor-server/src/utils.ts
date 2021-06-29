@@ -1,4 +1,4 @@
-import { NewPatientEntry, Gender } from './types';
+import { Gender, NewPatientEntry } from './types';
 
 const isString = (text: unknown): text is string => {
     return typeof text === 'string' || text instanceof String;
@@ -34,15 +34,27 @@ const parseGender = (gender: unknown): Gender => {
     return gender;
 };
 
-type Fields = { name: unknown, dateOfBirth: unknown, ssn: unknown, gender: unknown, occupation: unknown };
+const isArray = (param: unknown): boolean => {
+    return typeof(param) === 'object' && param instanceof Array
+}
 
-const toNewPatientEntry = ({ name, dateOfBirth, ssn, gender, occupation }: Fields): NewPatientEntry => {
+const parseEntries = (entries: unknown, target: string): any => {
+    if ( !isArray(entries)) {
+        throw new Error('Incorrect or missing entries: ' + target)
+    }
+    return entries
+}
+
+type Fields = { name: unknown, dateOfBirth: unknown, ssn: unknown, gender: unknown, occupation: unknown, entries: unknown };
+
+const toNewPatientEntry = ({ name, dateOfBirth, ssn, gender, occupation, entries }: Fields): NewPatientEntry => {
     const newEntry: NewPatientEntry = {
         name: parseString(name, 'name'), 
         dateOfBirth: parseDate(dateOfBirth), 
         ssn: parseString(ssn, 'ssr'), 
         gender: parseGender(gender), 
-        occupation: parseString(occupation, 'occupation')
+        occupation: parseString(occupation, 'occupation'),
+        entries: parseEntries(entries, 'entries')
     };
     return newEntry;
 };
