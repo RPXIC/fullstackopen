@@ -1,4 +1,4 @@
-export interface Diagnosis {
+export interface Diagnoses {
   code: string;
   name: string;
   latin?: string;
@@ -15,7 +15,7 @@ interface BaseEntry {
   description: string;
   date: string;
   specialist: string;
-  diagnosisCodes?: Array<Diagnosis['code']>;
+  diagnosisCodes?: Array<Diagnoses['code']>;
 }
 
 export type Entry =
@@ -44,7 +44,7 @@ interface OccupationalHealthcareEntry extends BaseEntry {
   sickLeave?: SickLeave
 }
     
-interface HealthCheckEntry extends BaseEntry {
+export interface HealthCheckEntry extends BaseEntry {
   type: "HealthCheck";
   healthCheckRating: HealthCheckRating;
 }
@@ -64,4 +64,15 @@ export interface Patient {
   ssn?: string;
   dateOfBirth?: string;
   entries: Entry[]
+}
+
+export interface Diagnose {
+  name: string;
+  code: string;
+  latin?: string;
+}
+
+export interface EntryDetailsProps {
+  entry: Entry;
+  diagnoses?: Diagnoses[];
 }

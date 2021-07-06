@@ -17,5 +17,5 @@
     "allowJs": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src", "**/*.ts", "**/*.js"]
 }
