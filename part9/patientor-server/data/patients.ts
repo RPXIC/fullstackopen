@@ -1,5 +1,4 @@
-import { Patient, Gender } from '../src/types';
-// import toNewPatientEntry from '../src/utils';
+import { Patient, Gender } from '../src/types'
 
 const patients: Patient[] = [
   {
@@ -15,9 +14,8 @@ const patients: Patient[] = [
         date: '2015-01-02',
         type: 'Hospital',
         specialist: 'MD House',
-        diagnosisCodes: ['S62.5'],
-        description:
-          "Healing time appr. 2 weeks. patient doesn't remember how he got the injury.",
+        diagnosesCodes: ['S62.5'],
+        description: "Healing time appr. 2 weeks. patient doesn't remember how he got the injury.",
         discharge: {
           date: '2015-01-16',
           criteria: 'Thumb has healed.',
@@ -39,7 +37,7 @@ const patients: Patient[] = [
         type: 'OccupationalHealthcare',
         specialist: 'MD House',
         employerName: 'HyPD',
-        diagnosisCodes: ['Z57.1', 'Z74.3', 'M51.2'],
+        diagnosesCodes: ['Z57.1', 'Z74.3', 'M51.2'],
         description:
           'Patient mistakenly found himself in a nuclear plant waste site without protection gear. Very minor radiation poisoning. ',
         sickLeave: {
@@ -87,8 +85,7 @@ const patients: Patient[] = [
         date: '2018-10-05',
         specialist: 'MD House',
         type: 'HealthCheck',
-        description:
-          'Yearly control visit. Due to high cholesterol levels recommended to eat more vegetables.',
+        description: 'Yearly control visit. Due to high cholesterol levels recommended to eat more vegetables.',
         healthCheckRating: 1,
       },
     ],
@@ -111,14 +108,6 @@ const patients: Patient[] = [
       },
     ],
   },
-];
+]
 
-export default patients;
-
-// const patients: Patient[] = data.map(obj => {
-//     const object = toNewPatientEntry(obj) as Patient;
-//     object.id = obj.id;
-//     return object;
-// });
-
-// export default patients;
+export default patients

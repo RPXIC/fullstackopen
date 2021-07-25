@@ -1,18 +1,18 @@
 import React from "react";
 import { Icon } from "semantic-ui-react";
 import { SemanticCOLORS } from "semantic-ui-react/dist/commonjs/generic";
-import { Diagnose, HealthCheckEntry, Diagnoses } from "../types";
+import { HealthCheckEntry, Diagnosis } from "../types";
 
 const colors: SemanticCOLORS[] = ["green", "yellow", "purple", "red"];
 
-const HealtCheck: React.FC<{
+const HealthCheck: React.FC<{
   entry: HealthCheckEntry;
-  diagnoses: Diagnoses[];
+  diagnoses: Diagnosis[];
 }> = ({ entry, diagnoses }) => {
-  const { diagnosisCodes, date, description, healthCheckRating } = entry;
+  const { diagnosesCodes, date, description, healthCheckRating } = entry;
 
   const getDiagnoseCode = (el: string) => {
-    const res = diagnoses?.find((diagnose: Diagnose) => diagnose.code === el);
+    const res = diagnoses?.find((diagnose: Diagnosis) => diagnose.code === el);
     return res?.name;
   };
 
@@ -37,7 +37,7 @@ const HealtCheck: React.FC<{
       </div>{" "}
       <span style={{ color: "gray" }}> {description}</span>
       <div style={{ listStyle: "none", marginTop: "0.5rem" }}>
-        {diagnosisCodes?.map((el, i) => (
+        {diagnosesCodes?.map((el, i) => (
           <div key={i}>
             {el} {getDiagnoseCode(el)}
           </div>
@@ -48,4 +48,4 @@ const HealtCheck: React.FC<{
   );
 };
 
-export default HealtCheck;
+export default HealthCheck;

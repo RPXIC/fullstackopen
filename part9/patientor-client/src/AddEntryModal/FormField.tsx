@@ -1,9 +1,9 @@
 import React from "react";
 import { ErrorMessage, Field, FormikProps } from "formik";
 import { Dropdown, DropdownProps, Form } from "semantic-ui-react";
-import { Diagnosis, NumberProps, PatientSelectFieldProps, TextProps } from "../types";
+import { Diagnosis, SelectFieldProps, TextProps, NumberProps } from "../types";
 
-export const SelectField = ({ name, label, options }: PatientSelectFieldProps) => (
+export const SelectField = ({ name, label, options }: SelectFieldProps) => (
   <Form.Field>
     <label>{label}</label>
     <Field as="select" name={name} className="ui dropdown">
@@ -43,10 +43,10 @@ export const DiagnosisSelection = ({
   setFieldTouched,
 }: {
   diagnoses: Diagnosis[];
-  setFieldValue: FormikProps<{ diagnosisCodes: string[] }>["setFieldValue"];
-  setFieldTouched: FormikProps<{ diagnosisCodes: string[] }>["setFieldTouched"];
+  setFieldValue: FormikProps<{ diagnosesCodes: string[] }>["setFieldValue"];
+  setFieldTouched: FormikProps<{ diagnosesCodes: string[] }>["setFieldTouched"];
 }) => {
-  const field = "diagnosisCodes";
+  const field = "diagnosesCodes";
   const onChange = (_event: React.SyntheticEvent<HTMLElement, Event>, data: DropdownProps) => {
     setFieldTouched(field, true);
     setFieldValue(field, data.value);

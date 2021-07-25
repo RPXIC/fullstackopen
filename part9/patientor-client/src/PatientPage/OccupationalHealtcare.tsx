@@ -1,12 +1,12 @@
 import React from "react";
-import { Diagnose, EntryDetailsProps } from "../types";
+import { Diagnosis, EntryDetailsProps } from "../types";
 import { Icon } from "semantic-ui-react";
 
 const OccupationalHealtcare = ({ entry, diagnoses }: EntryDetailsProps) => {
-  const { diagnosisCodes, date, description } = entry;
+  const { diagnosesCodes, date, description } = entry;
 
   const getDiagnoseCode = (el: string) => {
-    const res = diagnoses?.find((diagnose: Diagnose) => diagnose.code === el);
+    const res = diagnoses?.find((diagnose: Diagnosis) => diagnose.code === el);
     return res?.name;
   };
 
@@ -31,7 +31,7 @@ const OccupationalHealtcare = ({ entry, diagnoses }: EntryDetailsProps) => {
       </div>
       <span style={{ color: "gray" }}> {description}</span>
       <div style={{ listStyle: "none", marginTop: "0.5rem" }}>
-        {diagnosisCodes?.map((el, i) => (
+        {diagnosesCodes?.map((el, i) => (
           <div key={i}>
             {el} {getDiagnoseCode(el)}
           </div>

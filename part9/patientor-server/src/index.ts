@@ -1,8 +1,8 @@
-import express from 'express';
-import cors from 'cors';
-import diagnosesRouter from './routes/diagnoses';
-import patientsRouter from './routes/patients';
-import patientRouter from './routes/patient';
+import express from "express";
+import cors from "cors";
+import diagnosesRouter from "./routes/diagnoses";
+import patientsRouter from "./routes/patients";
+import patientRouter from "./routes/patient";
 const app = express();
 
 app.use(cors());
@@ -10,13 +10,13 @@ app.use(express.json());
 
 const PORT = 3001;
 
-app.use('/api/diagnoses', diagnosesRouter);
-app.use('/api/patient', patientRouter)
-app.use('/api/patients', patientsRouter);
+app.use("/api/diagnoses", diagnosesRouter);
+app.use("/api/patient", patientRouter);
+app.use("/api/patients", patientsRouter);
 
-app.get('/api/ping', (_req, res) => {
-  console.log('someone pinged here');
-  res.send('pong');
+app.get("/api/ping", (_req, res) => {
+  console.log("someone pinged here");
+  res.send("pong");
 });
 
 app.listen(PORT, () => {
