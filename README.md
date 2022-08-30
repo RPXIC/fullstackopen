@@ -1,6 +1,6 @@
 # fullstackopen
 
-This repository is part of the fullstackopen bootcamp.
+This repository is part of the [fullstackopen bootcamp](https://fullstackopen.com/).
 
 ## Parts:
 - 0 Fundamentals of Web apps
